@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Сводка задач</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+.container {
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff
+}
+
+.header {
+	background-color: #f8f9fa;
+	padding: 15px;
+	text-align: center;
+}
+
+.content {
+	padding: 30px 15px;
+	text-align: center;
+}
+
+.task-section {
+	text-align: left;
+	margin-bottom: 30px;
+}
+
+.task {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 12px;
+	margin-bottom: 10px;
+}
+
+.task-title {
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 6px;
+}
+
+.task-description {
+	color: #555;
+	font-size: 14px;
+}
+
+h2 {
+	color: #2c3e50;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1 th:text="'Здравствуйте, ' + ${username} + '!'">Здравствуйте,
+				пользователь!</h1>
+			<p>Вот список ваших задач:</p>
+		</div>
+
+		<div class="content">
+			<div class="task-section">
+				<h2>В работе</h2>
+				<div th:each="task : ${activeTasks}">
+					<div class="task">
+						<div class="task-title" th:text="${task.title}">Название
+							задачи</div>
+						<div class="task-description"
+							th:text="${#strings.length(task.description) > 100} ? ${task.description.substring(0, 97)} + '...' : ${task.description}">
+							Краткое описание задачи</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="task-section">
+				<h2>Выполненные</h2>
+				<div th:each="task : ${completedTasks}">
+					<div class="task">
+						<div class="task-title" th:text="${task.title}">Название
+							задачи</div>
+						<div class="task-description"
+							th:text="${#strings.length(task.description) > 100} ? ${task.description.substring(0, 97)} + '...' : ${task.description}">
+							Краткое описание задачи</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>Это письмо сформировано автоматически. Пожалуйста, не
+				отвечайте на него.</p>
+		</div>
+	</div>
+</body>
+</html>
